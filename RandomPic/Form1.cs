@@ -52,15 +52,21 @@ namespace RandomPic
 							continue;
 						}
 						string[] split = text.Split(new Char[] { ' ','\t' }, StringSplitOptions.RemoveEmptyEntries);
+
 						PicGroup p = new PicGroup
 						{
 							prefix = split[0],
 							extension = split[1],
 							stepTime = double.Parse(split[2]),
-							path = pathname.Substring(0, pathname.LastIndexOf('\\')),      //不包含最后的反斜杠
-							numPic = int.Parse(split[3])
+							path = pathname.Substring(0, pathname.LastIndexOf('\\'))      //不包含最后的反斜杠
 						};
 
+						int iFile = 1;
+						while (File.Exists(p.path + "\\" + p.prefix + " (" + iFile.ToString() + ")." + p.extension))
+						{
+							iFile++;
+						}
+						p.numPic = iFile - 1;
 
 						picList.Add(p);
 						text = sr.ReadLine();
@@ -92,12 +98,20 @@ namespace RandomPic
 						continue;
 					}
 					string[] split = text.Split(new Char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-					PicGroup p = new PicGroup();
-					p.prefix = split[0];
-					p.extension = split[1];
-					p.stepTime = double.Parse(split[2]);
-					p.path = listPath.Substring(0, listPath.LastIndexOf('\\'));      //不包含最后的反斜杠
-					p.numPic = int.Parse(split[3]);
+					PicGroup p = new PicGroup
+					{
+						prefix = split[0],
+						extension = split[1],
+						stepTime = double.Parse(split[2]),
+						path = listPath.Substring(0, listPath.LastIndexOf('\\'))      //不包含最后的反斜杠
+					};
+
+					int iFile = 1;
+					while (File.Exists(p.path + "\\" + p.prefix + " (" + iFile.ToString() + ")." + p.extension))
+					{
+						iFile++;
+					}
+					p.numPic = iFile - 1;
 
 
 					picList.Add(p);
