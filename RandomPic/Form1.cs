@@ -232,7 +232,12 @@ namespace RandomPic
 			}
             return false;
         }
-    }
+
+		private void 扫描文件夹ToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+
+		}
+	}
 
 	public class PicGroup
 	{
